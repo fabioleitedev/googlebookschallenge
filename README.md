@@ -1,5 +1,7 @@
-# HomeSpring Challenge
+# HomeSpring Challenge 📚
 This is a React / Node.js challenge for HomeSpring company.
 
-WIP: I just started. 🏃🏻‍♂️
-WIP: I installed and configured Lerna monorepo, React for the frontend and NestJS for the backend.
+## Technical Considerations
+- I'm using Lerna to use a monorepo to this challenge.
+- Using React for the frontend.
+- Using NestJS framework for the backend.
