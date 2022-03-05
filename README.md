@@ -2,27 +2,28 @@
 This is a React / Node.js challenge for HomeSpring company.
 
 ## Technical Considerations
-- I'm using Lerna as my monorepo technology. It makes sense to a product pespective. For example, we can share the model classes between both frontend and backend projects.
+- I'm using **Lerna** as my monorepo technology. It makes sense for products pespective. For example, we can share the model classes between both frontend and backend projects and more.
 - I'm using NestJS as the Node.js framework for many reasons. One of these reasons is to have all the code well organized with good patterns. Other great reason is because this framework provide a set of great resources to many scenarios such as microservices, event-driven and more.
-- ⚠️ Specally for the purposes of this challenge, I put the ``.env`` file in the root of each project.
+- ⚠️ Specally for the purposes of this challenge, I put the ``.env`` file in the root of each project. But it's not a usuall practice.
 
 ### Web Frontend
 - Coded in React and Typescript
 - Using Jest for some tests.
 - I addded some good UX behaviors that I consider important like skeletons and disabling components while querying the API.
 - As a "challenge" perspective, I decided not changing the original structure of the React app.
-- A sugestion would be to use a button trigger the search, to avoid a request every time I hit a key in the serach field, or of course, use a full-text-serach approach with Elastic or something like that.
+- A sugestion would be to use a button to trigger the search, to avoid a request every time I hit a key in the search field, or of course, use a full-text-serach approach with Elastic or Mongo.
 
 ### API Backend
 - Coded in Node.js and Typescript.
 - Using NestJS framework.
+- Using Jest for testing.
 
 ## Out of this scope (But I strongly recommend)
 - Authentication
 - Authorization
 - Swagger/OpenAPI documentation
-- Cache with Redis (This is a good scenario to cache the results in memory)
-- Of couse, a lot of other improvements
+- Redis (This is a good scenario to thinking about cache results for some common searches in memory)
+- Of couse, a lot of other improvements 👍🏻
 
 ## Requirements to Start
 - [Git](https://git-scm.com/)
