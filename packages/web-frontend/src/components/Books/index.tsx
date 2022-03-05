@@ -1,10 +1,11 @@
 import { Typography } from "@mui/material";
-import { Volume } from "../../model/Volume";
+import { Volume } from "../../../../shared/model/Volume";
 import {
   BookSkeleton,
   CustomCard,
   CustomCardContent,
   Separator,
+  Thumb,
 } from "./styles";
 
 export interface BooksProps {
@@ -55,6 +56,9 @@ export default function Books({ items, loading }: BooksProps) {
         items.map((i, index) => (
           <CustomCard key={index}>
             <CustomCardContent>
+              {i.imageLink && (
+                <Thumb src={i.imageLink} sx={{ width: 56, height: 56 }} />
+              )}
               <Typography variant="h6" component="div">
                 {i.title}
               </Typography>

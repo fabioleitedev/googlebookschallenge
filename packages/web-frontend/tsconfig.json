@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "../shared/model/BookServiceResponse.ts", "../shared/model/Books.ts"  ]
 }

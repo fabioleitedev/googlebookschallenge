@@ -1,4 +1,4 @@
-import { FormControl, InputAdornment, MenuItem } from "@mui/material";
+import { FormControl, InputAdornment, MenuItem, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -15,44 +15,75 @@ import {
 } from "./styles";
 import { BookService } from "../../services/BookService";
 import Books from "../../components/Books";
-import { Volume } from "../../model/Volume";
+import { Volume } from "../../../../shared/model/Volume";
+import { BookServiceResponse } from "../../../../shared/model/BookServiceResponse";
 
 export default function MainPage() {
   const [starCount, setStarCount] = useState(0);
   const [volumes, setVolumes] = useState<Volume[]>([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [showPagination, setShowPagination] = useState(false);
   const [totalOfVolumes, setTotalOfVolumes] = useState(0);
+  const [showError, setShowError] = useState(false);
+  const [page, setPage] = useState(1);
 
-  const loadBooks = async (page: number, query?: string) => {
-    const bookService = new BookService();
-    const booksFromApi = await bookService.getBooksPerPage(page, query);
+  const loadBooks = async () => {
+    if (search.trim().length === 0) {
+      setVolumes([]);
+      setShowPagination(false);
+      return;
+    }
 
     setLoading(true);
+    setShowPagination(false);
 
-    setTimeout(() => {
-      setVolumes(booksFromApi.volumes);
-      setTotalOfVolumes(booksFromApi.totalOfVolumes);
+    const bookService = new BookService();
+    let books: BookServiceResponse;
+
+    if (starCount === 0) {
+      books = await bookService.getBooksPerPage(page, search);
+    } else {
+      books = await bookService.getBooksPerRating(page, search, starCount);
+    }
+
+    if (!books.success) {
+      setShowError(true);
+      setSearch("");
+      setStarCount(0);
       setLoading(false);
-    }, 5000);
+      return;
+    }
+
+    setVolumes([]);
+
+    if (books.data?.volumes.length === 0) {
+      setLoading(false);
+      return;
+    }
+
+    setVolumes(books.data?.volumes);
+    setTotalOfVolumes(books.data?.totalOfVolumes);
+    setShowPagination(true);
+    setLoading(false);
   };
 
   useEffect(() => {
-    loadBooks(1);
-    setStarCount(0);
-  }, []);
+    loadBooks();
+  }, [starCount, search, page]);
 
-  useEffect(() => {
-    loadBooks(1, search);
-  }, [search]);
-
-  const handleStarCount = () => {
-    //setStarCount(0);
+  const handleStarCount = (e: any) => {
+    setPage(1);
+    setStarCount(e.target.value);
   };
 
   const handleSearch = (e: any) => {
-    console.log(e.target.value);
     setSearch(e.target.value);
+    setPage(1);
+  };
+
+  const handlePageChanging = async (e: any, value: number) => {
+    setPage(value);
   };
 
   return (
@@ -84,7 +115,7 @@ export default function MainPage() {
             <Filter
               id="filter-input"
               placeholder="Start searching..."
-              onKeyUp={(e) => handleSearch(e)}
+              onChange={handleSearch}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -98,17 +129,25 @@ export default function MainPage() {
           <ResultsWrapper id="result-wrapper">
             <Books loading={loading} items={volumes}></Books>
           </ResultsWrapper>
-          {!loading && (
+          {showPagination && (
             <PaginatorWrapper spacing={2}>
               <Paginator
                 count={totalOfVolumes}
                 variant="outlined"
                 shape="rounded"
+                page={page}
+                onChange={handlePageChanging}
               />
             </PaginatorWrapper>
           )}
         </RightContainer>
       </MainWrapper>
+      <Snackbar
+        open={showError}
+        autoHideDuration={4000}
+        onClose={() => setShowError(false)}
+        message="Oops! Something went wrong here. Try again later."
+      />
     </>
   );
 }

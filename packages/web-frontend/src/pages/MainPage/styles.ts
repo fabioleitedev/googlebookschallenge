@@ -6,7 +6,7 @@ export const MainWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 50px;
-  margin-left: calc(50% - 785px);
+  margin-left: calc(50% - 600px);
   background-color: ${colors.bodyBackgroundColor};
   padding: 10px;
 `;
@@ -14,7 +14,7 @@ export const MainWrapper = styled.div`
 export const LeftWrapper = styled.div`
   background-color: ${colors.starCounterWrapperBackgroundColor};
   display: flex;
-  width: 800px;
+  width: 600px;
   height: 800px;
   margin-right: 20px;
 `;
@@ -32,6 +32,7 @@ export const StarCounter = styled(Select)`
 
 export const RightContainer = styled.div`
   display: flex;
+  width: 600px;
   flex-direction: column;
   background-color: ${colors.RightContainerBackgroundColor};
   border-radius: 5px;
@@ -63,11 +64,13 @@ export const ResultsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${colors.resultsWrapperBackgroundColor};
-  min-height: 500px;
+  min-height: 650px;
+  box-shadow: none;
 `;
 
 export const PaginatorWrapper = styled(Stack)`
-  margin-left: 140px;
+  display: flex;
+  align-items: center;
   margin-bottom: 40px;
 `;
 

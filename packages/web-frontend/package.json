@@ -1,6 +1,10 @@
 {
   "name": "web-frontend",
   "version": "0.0.1",
+  "author": {
+    "name": "Fábio Leite",
+    "email": "fabioleitedev@gmail.com"
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.1",
@@ -19,6 +23,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "@types/styled-components": "^5.1.24",
     "axios": "^0.26.0",
+    "dotenv": "^16.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",

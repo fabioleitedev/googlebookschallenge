@@ -4,4 +4,5 @@ export interface Volume {
   year: string;
   publisher: string;
   description: string;
+  imageLink: string;
 }

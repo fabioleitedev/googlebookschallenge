@@ -1,45 +1,48 @@
-import { Books } from "../model/Books";
+import axios from "axios";
+import { BookServiceResponse } from "../../../shared/model/BookServiceResponse";
 
 export class BookService {
-  public async getBooksPerPage(page: number, query?: String) {
-    const response: Books = {
-      totalOfVolumes: 100,
-      volumes: [
-        {
-          title: "Book Title",
-          pages: 10,
-          year: "2000",
-          publisher: "Fabio Leite",
-          description:
-            "Oscar-winning film Charly starring Cliff Robertson and Claire Bloom-a mentally challenged man receives an operation that turns him into a genius...and introduces him to heartache.",
-        },
-        {
-          title: "Book Title",
-          pages: 10,
-          year: "2000",
-          publisher: "Fabio Leite",
-          description:
-            "Oscar-winning film Charly starring Cliff Robertson and Claire Bloom-a mentally challenged man receives an operation that turns him into a genius...and introduces him to heartache.",
-        },
-        {
-          title: "Book Title",
-          pages: 10,
-          year: "2000",
-          publisher: "Fabio Leite",
-          description:
-            "Oscar-winning film Charly starring Cliff Robertson and Claire Bloom-a mentally challenged man receives an operation that turns him into a genius...and introduces him to heartache.",
-        },
-        {
-          title: "Book Title",
-          pages: 10,
-          year: "2000",
-          publisher: "Fabio Leite",
-          description:
-            "Oscar-winning film Charly starring Cliff Robertson and Claire Bloom-a mentally challenged man receives an operation that turns him into a genius...and introduces him to heartache.",
-        },
-      ],
-    };
+  public async getBooksPerPage(page: number, q: String) {
+    const pageNumber = page - 1;
+    const request = `${process.env.REACT_APP_BACKEND_URL}?page=${pageNumber}&q=${q}`;
+    console.log("request ", request);
+    try {
+      const response = await axios.get<BookServiceResponse>(request);
 
-    return response;
+      if (!response || response.status !== 200) {
+        return {
+          success: false,
+        } as BookServiceResponse;
+      }
+
+      return response.data;
+    } catch (error) {
+      return {
+        success: false,
+        errorDetails: error,
+      } as BookServiceResponse;
+    }
+  }
+
+  public async getBooksPerRating(page: number, q: String, stars: number) {
+    const pageNumber = page - 1;
+    const request = `${process.env.REACT_APP_BACKEND_URL_RATING}?page=${pageNumber}&q=${q}&stars=${stars}`;
+
+    try {
+      const response = await axios.get<BookServiceResponse>(request);
+
+      if (!response || response.status !== 200) {
+        return {
+          success: false,
+        } as BookServiceResponse;
+      }
+
+      return response.data;
+    } catch (error) {
+      return {
+        success: false,
+        errorDetails: error,
+      } as BookServiceResponse;
+    }
   }
 }

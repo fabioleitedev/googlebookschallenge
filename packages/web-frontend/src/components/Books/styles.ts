@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import { Card, CardContent, Skeleton } from "@mui/material";
+import { Avatar, Card, CardContent, Skeleton } from "@mui/material";
 import colors from "../../colors";
 
 export const CustomCard = styled(Card)`
+  display: flex;
+  align-items: center;
   padding: 10px;
   margin-top: 0;
-  width: 600px;
-  box-shadow: none;
-  padding-bottom: 0px;
+  width: 550px;
+  box-shadow: none !important;
+  border: none !important;
 `;
 
 export const CustomCardContent = styled(CardContent)``;
@@ -23,4 +25,10 @@ export const Separator = styled.hr`
 export const BookSkeleton = styled(Skeleton)`
   height: 20px;
   margin-bottom: 10px;
+`;
+
+export const Thumb = styled(Avatar)`
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
 `;
