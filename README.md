@@ -1,5 +1,5 @@
-# HomeSpring Challenge 📚
-This is a React / Node.js challenge for HomeSpring company.
+# Google Books Challenge 📚
+This is a React / Node.js challenge to consume the Google Books API.
 
 ## Technical Considerations
 - I'm using **Lerna** as my monorepo technology. It makes sense for products pespective. For example, we can share the model classes between both frontend and backend projects and more.
